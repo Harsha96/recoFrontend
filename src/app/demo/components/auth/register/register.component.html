@@ -1,0 +1,78 @@
+<div class="col-12">
+    <div class="card">
+        <h5>Register Form</h5>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label htmlFor="firstname2">Firstname</label>
+                <input pInputText id="firstname2" type="text" />
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="lastname2">Lastname</label>
+                <input pInputText id="lastname2" type="text" />
+            </div>
+            <div class="field col-12">
+                <label htmlFor="gender">Gender</label>
+
+                <div class="grid formgrid">
+                    <div class="field-radiobutton">
+                        <p-radioButton
+                            name="Gender"
+                            value="male"
+                            id="city1"
+                        ></p-radioButton>
+                        <label for="city1">Male</label>
+                    </div>
+
+                    <div class="field-radiobutton">
+                        <p-radioButton
+                            name="Gender"
+                            value="Female"
+                            id="city2"
+                        ></p-radioButton>
+                        <label for="city2">Female</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field col-12 md:col-6">
+                <label htmlFor="city">City</label>
+                <input pInputText id="city" type="text" />
+            </div>
+            <div class="field col-12 md:col-3">
+                <label htmlFor="district">District</label>
+                <p-dropdown
+                    [options]="dropdownItems"
+                    optionLabel="name"
+                    [(ngModel)]="selectedDistrict"
+                ></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-3">
+                <label for="birthday">Birthday</label>
+
+                <p-calendar inputId="birthday"></p-calendar>
+            </div>
+
+            <div class="field col-12 md:col-4">
+                <label htmlFor="email">Email</label>
+                <input pInputText id="email" type="text" />
+            </div>
+
+            <div class="field col-12 md:col-4">
+                <label for="password1">Password</label>
+                <p-password
+                    id="password1"
+                    placeholder="Password"
+                    [toggleMask]="true"
+                ></p-password>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label for="password2">Confirm Password</label>
+                <p-password
+                    id="password2"
+                    placeholder="Password Confirm"
+                    [toggleMask]="true"
+                ></p-password>
+            </div>
+        </div>
+    </div>
+</div>
