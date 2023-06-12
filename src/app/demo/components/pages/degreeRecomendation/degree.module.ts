@@ -5,6 +5,11 @@ import { DegreeComponent } from './degree.component';
 import { TimelineModule } from 'primeng/timeline';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ChartModule } from 'primeng/chart';
+
 
 @NgModule({
     imports: [
@@ -12,8 +17,10 @@ import { CardModule } from 'primeng/card';
         TimelineModule,
         ButtonModule,
         CardModule,
-        DegreeRoutingModule
+        DegreeRoutingModule, ProgressSpinnerModule, ToastModule, ChartModule
+
     ],
-    declarations: [DegreeComponent]
+    declarations: [DegreeComponent],
+    providers: [MessageService]
 })
 export class DegreeModule { }

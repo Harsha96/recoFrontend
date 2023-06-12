@@ -2,12 +2,18 @@
     <div class="text-700 text-center">
         <div class="text-blue-600 font-bold mb-3"><i class="pi pi-thumbs-up-fill
             "></i>&nbsp;Our Recommended Degree</div>
-        <div class="text-900 font-bold text-5xl mb-3">Degree Name</div>
-        <div class="text-700 text-2xl mb-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam
-            eligendi quos.</div>
+        <div class="text-900 font-bold text-5xl mb-3">{{ suitableDegree }} </div>
+        <div class="text-700 text-xl mb-5">{{degree.desc}}</div>
+
+        <!-- <div class="card flex flex-column align-items-center">
+            <h5 class="text-left w-full">Doughnut Chart</h5>
+            <p-chart type="doughnut" [data]="chartData" [options]="chartOptions"></p-chart>
+        </div> -->
         <div class="  gap-5">
-            <button pButton pRipple label="More info" icon="pi pi-search" style="padding-right: 2%;"
-                class="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap p-button-success  "></button>
+            <a [href]="degree.link" target="_blank">
+                <button pButton pRipple label="More info" icon="pi pi-search" style="padding-right: 2%;"
+                    class="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap p-button-success"></button>
+            </a>
 
             <button pButton pRipple label="Advance Recommendation" icon="pi pi-bolt" style="padding-right: 2%;"
                 class="font-bold px-10 py-3 p-button-raised p-button-rounded white-space-nowrap"></button>
@@ -17,3 +23,10 @@
         </div>
     </div>
 </div>
+<div *ngIf="loading">
+    <p-progressSpinner
+        [style]="{ width: '100px', height: '100px', position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }"
+        strokeWidth="4" fill="rgba(255, 255, 255, 0.5)"></p-progressSpinner>
+
+</div>
+<p-toast></p-toast>
