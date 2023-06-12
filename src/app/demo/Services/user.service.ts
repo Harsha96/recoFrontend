@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from 'src/models/user.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,9 +11,16 @@ export class UserService {
 
     constructor(private readonly http: HttpClient) { }
 
-    getUserByEmail(email: string): Observable<User> {
+    getUserByEmail(email: string): Observable<any> {
         const url = `${this.baseUrl}/user/${email}`;
-        return this.http.get<User>(url);
+        // Get the JWT token from wherever it is stored (e.g., local storage, cookie)
+        const token = localStorage.getItem('access_token');
+
+        // Create the authorization header
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        // Include the headers in the HTTP GET request
+        return this.http.get<any>(url, { headers });
     }
     register(data: any): Observable<any> {
         const body = {

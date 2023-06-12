@@ -17,6 +17,9 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
+import { MessageService } from 'primeng/api';
+import { AuthService } from '../demo/Services/auth.service';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
     declarations: [
@@ -39,8 +42,11 @@ import { AppLayoutComponent } from "./app.layout.component";
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule
+        AppConfigModule, ToastModule,
+
     ],
-    exports: [AppLayoutComponent]
+    exports: [AppLayoutComponent],
+    providers: [MessageService, AuthService],
+
 })
 export class AppLayoutModule { }

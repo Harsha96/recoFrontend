@@ -1,6 +1,7 @@
 <div class="col-12">
     <div class="card">
         <h5>Register Form</h5>
+        <h6>Personal Details</h6>
         <div class="p-fluid p-formgrid grid">
             <div class="field col-12 md:col-6">
                 <label htmlFor="firstname2">Firstname</label>
@@ -10,41 +11,22 @@
                 <label htmlFor="lastname2">Lastname</label>
                 <input pInputText id="lastname2" type="text" />
             </div>
-            <div class="field col-12">
+
+            <div class="field col-12 md:col-3">
                 <label htmlFor="gender">Gender</label>
-
-                <div class="grid formgrid">
-                    <div class="field-radiobutton">
-                        <p-radioButton
-                            name="Gender"
-                            value="male"
-                            id="city1"
-                        ></p-radioButton>
-                        <label for="city1">Male</label>
-                    </div>
-
-                    <div class="field-radiobutton">
-                        <p-radioButton
-                            name="Gender"
-                            value="Female"
-                            id="city2"
-                        ></p-radioButton>
-                        <label for="city2">Female</label>
-                    </div>
-                </div>
+                <p-dropdown [options]="dropdownItemsGender" optionLabel="name"
+                    [(ngModel)]="selectedGender"></p-dropdown>
             </div>
 
-            <div class="field col-12 md:col-6">
-                <label htmlFor="city">City</label>
-                <input pInputText id="city" type="text" />
+            <div class="field col-12 md:col-3">
+                <label htmlFor="married">Married</label>
+                <p-dropdown [options]="dropdownItemsMarried" optionLabel="name"
+                    [(ngModel)]="selectedMarried"></p-dropdown>
             </div>
+
             <div class="field col-12 md:col-3">
                 <label htmlFor="district">District</label>
-                <p-dropdown
-                    [options]="dropdownItems"
-                    optionLabel="name"
-                    [(ngModel)]="selectedDistrict"
-                ></p-dropdown>
+                <p-dropdown [options]="dropdownItems" optionLabel="name" [(ngModel)]="selectedDistrict"></p-dropdown>
             </div>
             <div class="field col-12 md:col-3">
                 <label for="birthday">Birthday</label>
@@ -59,20 +41,71 @@
 
             <div class="field col-12 md:col-4">
                 <label for="password1">Password</label>
-                <p-password
-                    id="password1"
-                    placeholder="Password"
-                    [toggleMask]="true"
-                ></p-password>
+                <p-password id="password1" placeholder="Password" [toggleMask]="true"></p-password>
             </div>
             <div class="field col-12 md:col-4">
                 <label for="password2">Confirm Password</label>
-                <p-password
-                    id="password2"
-                    placeholder="Password Confirm"
-                    [toggleMask]="true"
-                ></p-password>
+                <p-password id="password2" placeholder="Password Confirm" [toggleMask]="true"></p-password>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="card">
+        <h6>Educational Details</h6>
+        <h6>OL results</h6>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-2">
+                <label htmlFor="Sinhala">Sinhala</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="sinhala"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="English">English</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="english"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="Mathematics">Mathematics</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="maths"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="Science">Science</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="science"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="Religion">Religion</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="religion"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="History">History</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="history"></p-dropdown>
+            </div>
+
+
+
+
+        </div>
+        <h6>AL results</h6>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-3">
+                <label htmlFor="stream">Stream</label>
+                <p-dropdown [options]="dropdownItemsStream" optionLabel="name"
+                    [(ngModel)]="selectedStream"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+
+                <label htmlFor="Sinhala">Sinhala</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="sinhala"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="English">English</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="english"></p-dropdown>
+            </div>
+            <div class="field col-12 md:col-2">
+                <label htmlFor="Mathematics">Mathematics</label>
+                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="maths"></p-dropdown>
+            </div>
+        </div>
+        <button pButton pRipple type="button" label="Success"></button>
     </div>
 </div>

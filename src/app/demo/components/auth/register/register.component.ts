@@ -8,6 +8,20 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 })
 export class RegisterComponent {
     selectedDistrict: any = null;
+    selectedGender: any = null;
+    selectedMarried: any = null;
+    selectedStream: any = null
+    sinhala: any = null
+    english: any = null
+
+    maths: any = null
+
+    science: any = null
+
+    religion: any = null
+
+    history: any = null
+
 
     states: any[] = [
         { name: 'Arizona', code: 'Arizona' },
@@ -18,6 +32,7 @@ export class RegisterComponent {
     ];
 
     dropdownItems = [
+        { name: '', code: '' },
         { name: 'Ampara', code: 'Ampara' },
         { name: 'Anuradhapura', code: 'Anuradhapura' },
         { name: 'Badulla', code: 'Badulla' },
@@ -44,6 +59,35 @@ export class RegisterComponent {
         { name: 'Trincomalee', code: 'Trincomalee' },
         { name: 'Vavuniya', code: 'Vavuniya' },
     ];
+    dropdownItemsGender = [
+        { name: '', code: '' },
+        { name: 'Male', code: 'Male' },
+        { name: 'Female', code: 'Female' },
+    ];
+    dropdownItemsMarried = [
+        { name: '', code: '' },
+        { name: 'Yes', code: 'Yes' },
+        { name: 'No', code: 'No' },
+    ];
+    dropdownItemsStream = [
+        { name: '', code: '' },
+        { name: 'Art', code: 'Art' },
+        { name: 'Biological Science', code: 'Biological Science' },
+        { name: 'Commerce stream', code: 'Commerce stream' },
+        { name: 'Physical Science with chemistry', code: 'Physical Science with chemistry' },
+        { name: 'Physical Science with IT', code: 'Physical Science with IT' },
+        { name: 'Technology stream', code: 'Technology stream' },
+
+    ];
+    dropdownItemsGrade = [
+        { name: '', code: '' },
+        { name: 'Grade A', code: 'A' },
+        { name: 'Grade B', code: 'B' },
+        { name: 'Grade C', code: 'C' },
+        { name: 'Grade S', code: 'S' },
+        { name: 'Grade F', code: 'F' }
+
+    ];
 
     cities1: any[] = [];
 
@@ -57,7 +101,7 @@ export class RegisterComponent {
         public layoutService: LayoutService,
 
         private formBuilder: FormBuilder
-    ) {}
-    ngOnInit() {}
-    register() {}
+    ) { }
+    ngOnInit() { }
+    register() { }
 }
