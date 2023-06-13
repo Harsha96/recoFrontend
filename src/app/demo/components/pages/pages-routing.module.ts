@@ -31,8 +31,14 @@ import { QuestionsComponent } from './questions/questions.component';
                         (m) => m.DegreeModule
                     ),
             },
+            {
+                path: 'course',
+                loadChildren: () =>
+                    import('./courseRecomendation/course.module').then(
+                        (m) => m.CourseModule
+                    ),
+            },
             { path: 'question', component: QuestionsComponent },
-
             { path: '**', redirectTo: '/notfound' },
         ]),
     ],

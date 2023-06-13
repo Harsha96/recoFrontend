@@ -11,6 +11,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { DashboardsRoutingModule } from './dashboard-routing.module';
 import { DividerModule } from 'primeng/divider';
 import { ImageModule } from 'primeng/image';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
     imports: [
@@ -22,7 +23,7 @@ import { ImageModule } from 'primeng/image';
         StyleClassModule,
         PanelMenuModule,
         ButtonModule,
-        DashboardsRoutingModule, DividerModule, ImageModule
+        DashboardsRoutingModule, DividerModule, ImageModule, ProgressSpinnerModule
     ],
     declarations: [DashboardComponent]
 })

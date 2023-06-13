@@ -26,14 +26,14 @@ export class LoginComponent {
 
     // email!: string;
     emailForm!: FormGroup;
-
+    loading: any
     constructor(
         public layoutService: LayoutService,
         private authService: AuthService,
         private router: Router,
         private messageService: MessageService,
         private formBuilder: FormBuilder
-    ) {}
+    ) { }
     ngOnInit() {
         this.emailForm = this.formBuilder.group({
             email: ['', [Validators.required, Validators.email]],
@@ -45,16 +45,15 @@ export class LoginComponent {
         console.log('Login button clicked');
 
         if (this.emailForm.valid) {
+            this.loading = true
             const email = this.emailForm.value.email;
             const password = this.emailForm.value.password;
 
-            // Perform login logic here
-            console.log('Login button clicked');
-            console.log('Email:', email);
-            console.log('Password:', password);
+
             // Rest of the login logic
             this.authService.login(email, password).subscribe(
                 (response: any) => {
+                    this.loading = false
                     this.messageService.add({
                         severity: 'success',
                         summary: 'Success',
@@ -66,11 +65,13 @@ export class LoginComponent {
                     setTimeout(() => {
                         this.messageService.clear();
                         this.router.navigate(['']);
-                    }, 500);
+                    }, 50);
                     // Navigate to the dashboard component
                     // Show success toast message
                 },
                 (error: any) => {
+                    this.loading = false
+
                     // Show error toast message
                     this.messageService.add({
                         severity: 'error',
