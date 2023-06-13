@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     chartOptions: any;
 
     subscription!: Subscription;
+    loading: any
 
     constructor(private productService: ProductService, public layoutService: LayoutService, private router: Router) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
@@ -96,10 +97,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         };
     }
     degreeRecommendation() {
+        this.loading = true
         this.router.navigate(['/pages/degree']);
 
     }
-    courseRecommendation() { }
+    courseRecommendation() {
+        this.router.navigate(['/pages/course']);
+    }
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();

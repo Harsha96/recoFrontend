@@ -28,7 +28,7 @@ export class DegreeComponent implements OnInit {
     socialFactors: number = 0
     educationalFactors: number = 0
     degree: any
-    loading = true
+    loading: any
     chartData: any
     chartOptions: any
     probability: any
@@ -73,6 +73,8 @@ export class DegreeComponent implements OnInit {
                 // }));
             },
             (error: any) => {
+                this.loading = false
+
                 this.messageService.add({
                     severity: 'error',
                     summary: 'Error',
@@ -214,10 +216,12 @@ export class DegreeComponent implements OnInit {
     }
 
     getDegreeData(name: string) {
-
+        this.loading = true
 
         // Retrieve the course data
         this.degreeService.getDegree(name).subscribe((data: any) => {
+            this.loading = false
+
             // Process the retrieved data
             this.degree = data
 

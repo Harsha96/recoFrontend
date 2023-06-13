@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/demo/Services/auth.service';
 import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
     imports: [
@@ -22,9 +23,9 @@ import { ToastModule } from 'primeng/toast';
         // FormsModule,
         PasswordModule,
         ReactiveFormsModule,
-        ToastModule,
+        ToastModule, ProgressSpinnerModule
     ],
     declarations: [LoginComponent],
     providers: [MessageService, AuthService],
 })
-export class LoginModule {}
+export class LoginModule { }
