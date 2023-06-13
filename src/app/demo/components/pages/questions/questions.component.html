@@ -1,0 +1,136 @@
+<div class="card">
+    <div class="header">
+        <h2>Questionnaire</h2>
+    </div>
+
+    <!-- <div class="question">
+        <label>
+            {{ this.count + 1 }}. {{ this.currentQuestion.question }}
+        </label>
+    </div>
+
+    <div class="answers">
+        <input
+            type="radio"
+            (change)="onAnswerChange(currentAnswer)"
+            name="answer"
+            value="{{ this.currentQuestion.answers[0] }}"
+            [(ngModel)]="currentAnswer"
+            required
+        />
+        {{ this.currentQuestion.answers[0] }}
+        <br />
+        <input
+            type="radio"
+            (change)="onAnswerChange(currentAnswer)"
+            name="answer"
+            value="{{ this.currentQuestion.answers[1] }}"
+            [(ngModel)]="currentAnswer"
+            required
+        />
+        {{ this.currentQuestion.answers[1] }}
+        <br />
+        <input
+            type="radio"
+            (change)="onAnswerChange(currentAnswer)"
+            name="answer"
+            value="{{ this.currentQuestion.answers[2] }}"
+            [(ngModel)]="currentAnswer"
+            required
+        />
+        {{ this.currentQuestion.answers[2] }}
+    </div>
+    <br />
+    <button
+        *ngIf="end === false"
+        pButton
+        pRipple
+        label="Next Question"
+        type="button"
+        (click)="onNextQuestion()"
+        [disabled]="isAnswered === false"
+    ></button>
+    <button
+        [disabled]="isAnswered === false"
+        *ngIf="end === true"
+        pButton
+        pRipple
+        label="Submit"
+        type="button"
+        (click)="onNextQuestion()"
+    ></button> -->
+
+
+<div
+    class="shadow-2 p-3 h-full flex flex-column surface-card"
+    style="border-radius: 6px"
+>
+    <div class="text-900 font-medium text-2xl mb-2">
+        <div class="question mt-3">
+            <label>
+                {{ this.count + 1 }}. {{ this.currentQuestion.question }}
+            </label>
+        </div>
+    </div>
+    <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
+    <div class="align-items-center">
+        <div class="answer block my-3 text-lg font-semibold">
+            <input
+                type="radio"
+                (change)="onAnswerChange(currentAnswer)"
+                name="answer"
+                value="{{ this.currentQuestion.answers[0] }}"
+                [(ngModel)]="currentAnswer"
+                class="ml-2 text-xl text-600"
+                required
+            />
+            {{ this.currentQuestion.answers[0] }}
+        </div>
+        <div class="answer block my-3 text-lg font-semibold">
+            <input
+                type="radio"
+                (change)="onAnswerChange(currentAnswer)"
+                name="answer"
+                value="{{ this.currentQuestion.answers[1] }}"
+                [(ngModel)]="currentAnswer"
+                class="ml-2 text-xl text-600"
+                required
+            />
+            {{ this.currentQuestion.answers[1] }}
+        </div>
+        <div class="answer block my-3 text-lg font-semibold">
+            <input
+                type="radio"
+                (change)="onAnswerChange(currentAnswer)"
+                name="answer"
+                value="{{ this.currentQuestion.answers[2] }}"
+                [(ngModel)]="currentAnswer"
+                class="ml-2 text-xl text-600"
+                required
+            />
+            {{ this.currentQuestion.answers[2] }}
+        </div>
+    </div>
+    <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto" />
+    <button
+    *ngIf="end === false"
+    pButton
+    pRipple
+    label="Next Question"
+    type="button"
+    (click)="onNextQuestion()"
+    class="w-3"
+    [disabled]="isAnswered === false"
+></button>
+<button
+    [disabled]="isAnswered === false"
+    *ngIf="end === true"
+    pButton
+    pRipple
+    label="Submit"
+    type="button"
+    (click)="onNextQuestion()"
+    class="w-3"
+></button>
+</div>
+</div>
