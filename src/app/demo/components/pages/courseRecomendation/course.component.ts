@@ -230,7 +230,21 @@ export class CourseComponent implements OnInit {
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        let selectedLevel = null;
 
+        if (data.course_code) {
+            const level = data.course_code.charAt(3);
+
+            if (level === "3") {
+                selectedLevel = this.level3;
+            } else if (level === "4") {
+                selectedLevel = this.level4;
+            } else if (level === "5") {
+                selectedLevel = this.level5;
+            } else if (level === "6") {
+                selectedLevel = this.level6;
+            }
+        }
         this.barData = {
             labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
             datasets: [
@@ -364,21 +378,21 @@ export class CourseComponent implements OnInit {
                 }
             }
         };
-        let selectedLevel = null;
+        // let selectedLevel = null;
 
-        if (data.course_code) {
-            const level = data.course_code.charAt(3);
+        // if (data.course_code) {
+        //     const level = data.course_code.charAt(3);
 
-            if (level === "3") {
-                selectedLevel = this.level3;
-            } else if (level === "4") {
-                selectedLevel = this.level4;
-            } else if (level === "5") {
-                selectedLevel = this.level5;
-            } else if (level === "6") {
-                selectedLevel = this.level6;
-            }
-        }
+        //     if (level === "3") {
+        //         selectedLevel = this.level3;
+        //     } else if (level === "4") {
+        //         selectedLevel = this.level4;
+        //     } else if (level === "5") {
+        //         selectedLevel = this.level5;
+        //     } else if (level === "6") {
+        //         selectedLevel = this.level6;
+        //     }
+        // }
 
         if (selectedLevel) {
             this.lineData = {

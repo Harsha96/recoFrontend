@@ -259,11 +259,13 @@
                     <!-- <img src="/src/assets/layout/images/degree.svg" alt="Degree Recommendation"> -->
                 </div>
                 <div class="card-content  justify-content-center">
-                    <h2>Degree Recommendation</h2>
+                    <div class="text-700 text-center">
+                        <h2>Degree Recommendation</h2>
+                        <button pButton pRipple type="button" label="View Degree Recommendation"
+                            (click)="degreeRecommendation()"
+                            class="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap p-button-success"></button>
+                    </div>
 
-
-                    <button pButton pRipple type="button" label="View Degree Recommendation"
-                        (click)="degreeRecommendation()" class="p-button-success"></button>
 
                 </div>
             </div>
@@ -277,9 +279,13 @@
                     <p-image src="assets/demo/images/course.svg" alt="Image" width="250" [preview]="false"></p-image>
                 </div>
                 <div class="card-content  justify-content-center">
-                    <h2>Course Recommendation</h2>
-                    <p-button label="View Course Recommendations" class="p-button-success"
-                        (click)="courseRecommendation()"></p-button>
+                    <div class="text-700 text-center">
+                        <h2>Course Recommendation</h2>
+                        <button pButton pRipple type="button" label="View Course Recommendation"
+                            (click)="courseRecommendation()"
+                            class="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap p-button-warning"></button>
+                    </div>
+
                 </div>
             </div>
         </div>

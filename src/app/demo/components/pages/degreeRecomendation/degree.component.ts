@@ -32,6 +32,7 @@ export class DegreeComponent implements OnInit {
     chartData: any
     chartOptions: any
     probability: any
+    display!: any
     constructor(private router: Router, private degreeService: DegreeRecommendationService, private userService: UserService, private messageService: MessageService) {
 
     }
@@ -40,7 +41,7 @@ export class DegreeComponent implements OnInit {
         this.loading = true
         this.getUserData()
         const documentStyle = getComputedStyle(document.documentElement);
-
+        this.display = true
     }
     getDegreeRecommendations(): void {
         const socialFactor = this.socialFactors; // Assign the value of this.socialFactors
@@ -265,5 +266,8 @@ export class DegreeComponent implements OnInit {
             width: 100 // Specify the desired width for the chart container
         }
 
+    }
+    loadStat() {
+        this.display = false
     }
 }
