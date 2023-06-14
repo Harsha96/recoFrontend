@@ -30,4 +30,42 @@ export class CourseRecommendationService {
         const endpoint = `${environment.apiUrl}/course/${courseName}`;
         return this.http.get<any>(endpoint);
     }
+    getLevel3(): Observable<any> {
+        const endpoint = `${environment.apiUrl}/level3`;
+        const token = localStorage.getItem('access_token');
+
+        // Create the authorization header
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.get<any>(endpoint, { headers: headers });
+    }
+
+    getLevel4(): Observable<any> {
+        const endpoint = `${environment.apiUrl}/level4`;
+        const token = localStorage.getItem('access_token');
+
+        // Create the authorization header
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.get<any>(endpoint, { headers: headers });
+    }
+
+    getLevel5(): Observable<any> {
+        const endpoint = `${environment.apiUrl}/level5`;
+        const token = localStorage.getItem('access_token');
+
+        // Create the authorization header
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.get<any>(endpoint, { headers: headers });
+    }
+    getLevel6(): Observable<any> {
+        const endpoint = `${environment.apiUrl}/level6`;
+        const token = localStorage.getItem('access_token');
+
+        // Create the authorization header
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.get<any>(endpoint, { headers: headers });
+    }
 }

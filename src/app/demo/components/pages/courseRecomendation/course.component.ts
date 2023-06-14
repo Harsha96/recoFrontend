@@ -16,8 +16,24 @@ export class CourseComponent implements OnInit {
     educationalFactors: number = 0
     user: any | undefined;
     loading = true
-    activityValues: number[] = [0, 100];
+    level3!: any[]
+    level4!: any[]
+    level5!: any[]
+    level6!: any[]
+    lineData: any;
 
+    barData: any;
+
+    pieData: any;
+
+
+
+    lineOptions: any;
+
+    barOptions: any;
+
+    pieOptions: any;
+    loadCharts = false
     constructor(private courseService: CourseRecommendationService, private userService: UserService
     ) {
 
@@ -25,8 +41,30 @@ export class CourseComponent implements OnInit {
 
     ngOnInit(): void {
         this.getUserData()
+        this.getLevel3()
+        this.getLevel4()
+        this.getLevel5()
+        this.getLevel6()
+        // this.initCharts();
 
     }
+    carouselResponsiveOptions: any[] = [
+        {
+            breakpoint: '1024px',
+            numVisible: 3,
+            numScroll: 3
+        },
+        {
+            breakpoint: '768px',
+            numVisible: 2,
+            numScroll: 2
+        },
+        {
+            breakpoint: '560px',
+            numVisible: 1,
+            numScroll: 1
+        }
+    ];
     getCoursesRecommendations(): void {
         // const socialFactor = 3; // Example value
         // const educationalFactor = 4; // Example value
@@ -126,15 +164,288 @@ export class CourseComponent implements OnInit {
         this.getCoursesRecommendations()
 
     }
-    onGlobalFilter(table: Table, event: Event) {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-    }
+
 
     // clear(table: Table) {
     //     table.clear();
     //     this.filter.nativeElement.value = '';
     // }
+    getLevel3() {
+        this.loading = true
+        this.courseService.getLevel3().subscribe(
+            (response: any) => {
+                this.loading = false
+                this.level3 = response;
 
+            },
+            (error: any) => {
+                console.error('Error fetching Courses:', error);
+            }
+        );
+    }
+    getLevel4() {
+        this.loading = true
+        this.courseService.getLevel4().subscribe(
+            (response: any) => {
+                this.loading = false
+                this.level4 = response;
+
+            },
+            (error: any) => {
+                console.error('Error fetching Courses:', error);
+            }
+        );
+    }
+    getLevel5() {
+        this.loading = true
+        this.courseService.getLevel5().subscribe(
+            (response: any) => {
+                this.loading = false
+                this.level5 = response;
+
+            },
+            (error: any) => {
+                console.error('Error fetching Courses:', error);
+            }
+        );
+    }
+    getLevel6() {
+        this.loading = true
+        this.courseService.getLevel6().subscribe(
+            (response: any) => {
+                this.loading = false
+                this.level6 = response;
+
+            },
+            (error: any) => {
+                console.error('Error fetching Courses:', error);
+            }
+        );
+    }
+    initCharts(data: any) {
+        this.loadCharts = true
+        console.log(data);
+
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--text-color');
+        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+        this.barData = {
+            labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+            datasets: [
+                {
+                    label: 'Pass out Rate',
+                    backgroundColor: documentStyle.getPropertyValue('--primary-500'),
+                    borderColor: documentStyle.getPropertyValue('--primary-500'),
+                    data: [data.passout_2010, data.passout_2011, data.passout_2012, data.passout_2013, data.passout_2014, data.passout_2015, data.passout_2016, data.passout_2017, data.passout_2018, data.passout_2019, data.passout_2020, data.passout_2021
+                    ]
+                },
+                // {
+                //     label: 'My Second dataset',
+                //     backgroundColor: documentStyle.getPropertyValue('--primary-200'),
+                //     borderColor: documentStyle.getPropertyValue('--primary-200'),
+                //     data: [28, 48, 40, 19, 86, 27, 90]
+                // }
+            ]
+        };
+
+        this.barOptions = {
+            plugins: {
+                legend: {
+                    labels: {
+                        fontColor: textColor
+                    }
+                },
+                title: {
+                    display: true,
+                    text: `${data.course_name} - ${data.course_code}`,
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    },
+                    color: 'white'
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: textColorSecondary,
+                        font: {
+                            weight: 500
+                        }
+                    },
+                    grid: {
+                        display: false,
+                        drawBorder: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: textColorSecondary
+                    },
+                    grid: {
+                        color: surfaceBorder,
+                        drawBorder: false
+                    }
+                },
+            }
+        };
+
+        // this.pieData = {
+        //     labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+        //     datasets: [
+        //         {
+        //             data: [data.passout_2010, data.passout_2011, data.passout_2012, data.passout_2013, data.passout_2014, data.passout_2015, data.passout_2016, data.passout_2017, data.passout_2018, data.passout_2019, data.passout_2020, data.passout_2021],
+        //             backgroundColor: [
+        //                 documentStyle.getPropertyValue('--indigo-500'),
+        //                 documentStyle.getPropertyValue('--purple-500'),
+        //                 documentStyle.getPropertyValue('--teal-500')
+        //             ],
+        //             hoverBackgroundColor: [
+        //                 documentStyle.getPropertyValue('--indigo-400'),
+        //                 documentStyle.getPropertyValue('--purple-400'),
+        //                 documentStyle.getPropertyValue('--teal-400')
+        //             ]
+        //         }]
+        // };
+        this.pieData = {
+            labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+            datasets: [
+                {
+                    data: [data.passout_2010, data.passout_2011, data.passout_2012, data.passout_2013, data.passout_2014, data.passout_2015, data.passout_2016, data.passout_2017, data.passout_2018, data.passout_2019, data.passout_2020, data.passout_2021],
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#FF8A80',
+                        '#4DD0E1',
+                        '#C5E1A5',
+                        '#FFAB40',
+                        '#FF4081',
+                        '#536DFE',
+                        '#FF5252',
+                        '#80CBC4',
+                        '#FFEB3B'
+                    ],
+                    hoverBackgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#FF8A80',
+                        '#4DD0E1',
+                        '#C5E1A5',
+                        '#FFAB40',
+                        '#FF4081',
+                        '#536DFE',
+                        '#FF5252',
+                        '#80CBC4',
+                        '#FFEB3B'
+                    ]
+                }
+            ]
+        };
+        this.pieOptions = {
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        color: textColor
+                    }
+                },
+                title: {
+                    display: true,
+                    text: `${data.course_name} - ${data.course_code}`,
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    },
+                    color: 'white'
+                }
+            }
+        };
+        let selectedLevel = null;
+
+        if (data.course_code) {
+            const level = data.course_code.charAt(3);
+
+            if (level === "3") {
+                selectedLevel = this.level3;
+            } else if (level === "4") {
+                selectedLevel = this.level4;
+            } else if (level === "5") {
+                selectedLevel = this.level5;
+            } else if (level === "6") {
+                selectedLevel = this.level6;
+            }
+        }
+
+        if (selectedLevel) {
+            this.lineData = {
+                labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+                datasets: selectedLevel.map((course, index) => {
+                    let color;
+
+                    if (data.course_code === course.course_code) {
+                        color = 'blue'; // Replace 'blue' with the color you want for the specific line
+                    } else {
+                        color = `hsl(${(index * (360 / selectedLevel.length))}, 70%, 50%)`;
+                    }
+
+                    return {
+                        label: course.course_code,
+                        data: [
+                            course.passout_2010,
+                            course.passout_2011,
+                            course.passout_2012,
+                            course.passout_2013,
+                            course.passout_2014,
+                            course.passout_2015,
+                            course.passout_2016,
+                            course.passout_2017,
+                            course.passout_2018,
+                            course.passout_2019,
+                            course.passout_2020,
+                            course.passout_2021
+                        ],
+                        fill: false,
+                        backgroundColor: color,
+                        borderColor: color,
+                        tension: 0.4
+                    };
+                })
+            };
+
+        }
+        this.lineOptions = {
+            plugins: {
+                legend: {
+                    labels: {
+                        fontColor: textColor
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: textColorSecondary
+                    },
+                    grid: {
+                        color: surfaceBorder,
+                        drawBorder: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: textColorSecondary
+                    },
+                    grid: {
+                        color: surfaceBorder,
+                        drawBorder: false
+                    }
+                },
+            }
+        };
+
+    }
 }
-
-

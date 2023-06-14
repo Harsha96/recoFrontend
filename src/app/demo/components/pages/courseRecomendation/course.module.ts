@@ -13,6 +13,7 @@ import { TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { SliderModule } from 'primeng/slider';
 import { TabViewModule } from 'primeng/tabview';
+import { CarouselModule } from 'primeng/carousel';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { TabViewModule } from 'primeng/tabview';
         ButtonModule,
         CardModule,
         CourseRoutingModule, ProgressSpinnerModule, ToastModule, ChartModule,
-        TableModule, ProgressBarModule, SliderModule, TabViewModule,
+        TableModule, ProgressBarModule, SliderModule, TabViewModule, CarouselModule
+
 
 
 
