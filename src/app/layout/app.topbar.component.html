@@ -15,10 +15,11 @@
 
     <div #topbarmenu class="layout-topbar-menu"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button class="p-link layout-topbar-button">
-            <i class="pi pi-calendar"></i>
-            <span>Calendar</span>
+        <button class="p-link layout-topbar-button" (click)="logout()">
+            <i class="pi pi-fw pi-sign-in"></i>
+            <span>Log Out</span>
         </button>
+
         <button class="p-link layout-topbar-button">
             <i class="pi pi-user"></i>
             <span>Profile</span>

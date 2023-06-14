@@ -51,6 +51,8 @@ export class TableDemoComponent implements OnInit {
     ngOnInit() {
         this.customerService.getCustomersLarge().then(customers => {
             this.customers1 = customers;
+            console.log(customers);
+
             this.loading = false;
 
             // @ts-ignore
@@ -134,5 +136,5 @@ export class TableDemoComponent implements OnInit {
         table.clear();
         this.filter.nativeElement.value = '';
     }
-    
+
 }

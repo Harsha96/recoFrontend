@@ -227,6 +227,9 @@ export class DegreeComponent implements OnInit {
 
         });
     }
+    advanceRecomondation() {
+        this.router.navigate(['/pages/question']);
+    }
     generateChart() {
         this.chartData = {
             labels: ['Success', 'Remaining'],

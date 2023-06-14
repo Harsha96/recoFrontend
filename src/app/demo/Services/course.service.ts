@@ -16,8 +16,13 @@ export class CourseRecommendationService {
             social_factor: socialFactor,
             educational_factor: educationalFactor
         };
+        const token = localStorage.getItem('access_token');
 
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        // Create the authorization header
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+
+        // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
         return this.http.post<any>(this.apiUrl, body, { headers: headers });
     }

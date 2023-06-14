@@ -9,6 +9,10 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 import { CourseComponent } from './course.component';
+import { TableModule } from 'primeng/table';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { SliderModule } from 'primeng/slider';
+import { TabViewModule } from 'primeng/tabview';
 
 
 @NgModule({
@@ -17,7 +21,11 @@ import { CourseComponent } from './course.component';
         TimelineModule,
         ButtonModule,
         CardModule,
-        CourseRoutingModule, ProgressSpinnerModule, ToastModule, ChartModule
+        CourseRoutingModule, ProgressSpinnerModule, ToastModule, ChartModule,
+        TableModule, ProgressBarModule, SliderModule, TabViewModule,
+
+
+
 
     ],
     declarations: [CourseComponent],

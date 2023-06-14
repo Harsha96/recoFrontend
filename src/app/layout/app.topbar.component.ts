@@ -3,6 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
 import { UserService } from '../demo/Services/user.service';
 import { Route, Router } from '@angular/router';
+import { AuthService } from '../demo/Services/auth.service';
 
 @Component({
     selector: 'app-topbar',
@@ -18,7 +19,7 @@ export class AppTopBarComponent implements OnInit {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService, private userService: UserService, private router: Router, private messageService: MessageService) { }
+    constructor(public layoutService: LayoutService, private userService: UserService, private router: Router, private messageService: MessageService, private authService: AuthService) { }
     ngOnInit(): void {
         let email = localStorage.getItem('email');
         if (email !== null) {
@@ -49,5 +50,17 @@ export class AppTopBarComponent implements OnInit {
         } else {
             this.router.navigate(['/auth/login']);
         }
+    }
+    logout() {
+        this.router.navigate(['/auth/login']);
+        this.authService.logout().subscribe(
+            (response: any) => {
+                // Redirect the user to the login page
+                this.router.navigate(['/auth/login']);
+            },
+            (error: any) => {
+                console.log(error);
+            }
+        );
     }
 }
