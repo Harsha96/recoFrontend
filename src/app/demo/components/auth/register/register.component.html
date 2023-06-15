@@ -1,111 +1,446 @@
-<div class="col-12">
+<div *ngIf="state===1" class="col-12">
     <div class="card">
-        <h5>Register Form</h5>
-        <h6>Personal Details</h6>
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-6">
-                <label htmlFor="firstname2">Firstname</label>
-                <input pInputText id="firstname2" type="text" />
-            </div>
-            <div class="field col-12 md:col-6">
-                <label htmlFor="lastname2">Lastname</label>
-                <input pInputText id="lastname2" type="text" />
-            </div>
+        <h1>Register Form</h1>
+        <!-- <hr> -->
+        <h3>Personal Details</h3>
+        <hr>
+        <form [formGroup]="personalInfo" (ngSubmit)="register()">
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="firstname">First Name</label>
+                    <input
+                        pInputText
+                        id="firstname"
+                        formControlName="firstName"
+                        type="text"
+                        [ngClass]="{
+                            'is-invalid':
+                                a.firstName.touched && a.firstName.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="a.firstName.touched && a.firstName.errors"
+                        class="p-error mt-1"
+                    >
+                        <div *ngIf="a.firstName.errors.required">
+                            First name is required
+                        </div>
+                        <div *ngIf="a.firstName.errors.minlength">
+                            First name must be at least 3 characters
+                        </div>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input
+                        pInputText
+                        id="lastname"
+                        formControlName="lastName"
+                        type="text"
+                    />
+                    <div
+                        *ngIf="a.lastName.touched && a.lastName.errors"
+                        class="p-error mt-1"
+                    >
+                        <div *ngIf="a.lastName.errors.required">
+                            First name is required
+                        </div>
+                        <div *ngIf="a.lastName.errors.minlength">
+                            First name must be at least 3 characters
+                        </div>
+                    </div>
+                </div>
 
-            <div class="field col-12 md:col-3">
-                <label htmlFor="gender">Gender</label>
-                <p-dropdown [options]="dropdownItemsGender" optionLabel="name"
-                    [(ngModel)]="selectedGender"></p-dropdown>
-            </div>
+                <div class="field col-12 md:col-4">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        pInputText
+                        id="email"
+                        formControlName="email"
+                        type="email"
+                        pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                        [ngClass]="{
+                            'is-invalid': a.email.touched && a.email.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="a.email.errors && a.email.touched"
+                        class="p-error mt-2"
+                    >
+                        <div *ngIf="a.email.errors.required">
+                            Email is required
+                        </div>
+                        <div *ngIf="this.a.email.errors.pattern">
+                            Provide a valid Email Address
+                        </div>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-4">
+                    <label htmlFor="nic">NIC</label>
+                    <input
+                        pInputText
+                        id="nic"
+                        formControlName="nic"
+                        type="text"
+                        pattern="^^([0-9]{9}[x|X|v|V]|[0-9]{12})$"
+                        [ngClass]="{
+                            'is-invalid': a.nic.touched && a.nic.errors
+                        }"
+                    />
+                    <div
+                        *ngIf="a.nic.errors && a.nic.touched"
+                        class="p-error mt-2"
+                    >
+                        <div *ngIf="a.nic.errors.required">NIC is required</div>
+                        <div *ngIf="this.a.nic.errors.pattern">
+                            Provide a valid NIC Number
+                        </div>
+                    </div>
+                </div>
 
-            <div class="field col-12 md:col-3">
-                <label htmlFor="married">Married</label>
-                <p-dropdown [options]="dropdownItemsMarried" optionLabel="name"
-                    [(ngModel)]="selectedMarried"></p-dropdown>
-            </div>
+                <div class="field col-12 md:col-4">
+                    <label htmlFor="married">Martial Status</label>
+                    <p-dropdown
+                        [options]="dropdownItemsMarried"
+                        optionLabel="name"
+                        optionValue="name"
+                        formControlName="martialStatus"
+                    ></p-dropdown>
+                </div>
 
-            <div class="field col-12 md:col-3">
-                <label htmlFor="district">District</label>
-                <p-dropdown [options]="dropdownItems" optionLabel="name" [(ngModel)]="selectedDistrict"></p-dropdown>
-            </div>
-            <div class="field col-12 md:col-3">
-                <label for="birthday">Birthday</label>
+                <div class="field col-12 md:col-4">
+                    <label for="password">Password</label>
+                    <p-password
+                        id="password"
+                        formControlName="password"
+                        placeholder="Password"
+                        [toggleMask]="true"
+                    ></p-password>
+                    <div
+                        *ngIf="a.password.errors && a.password.touched"
+                        class="p-error mt-2"
+                    >
+                        <div *ngIf="a.password.errors.required">
+                            NIC is required
+                        </div>
+                        <div *ngIf="a.password.errors.matching">
+                            Password mismatch.
+                        </div>
+                    </div>
+                </div>
+                <div class="field col-12 md:col-4">
+                    <label for="password1">Confirm Password</label>
+                    <p-password
+                        id="password1"
+                        formControlName="password1"
+                        placeholder="Password Confirm"
+                        [toggleMask]="true"
+                    ></p-password>
+                    <div
+                        *ngIf="a.password1.errors && a.password1.touched"
+                        class="p-error mt-2"
+                    >
+                        <div *ngIf="a.password1.errors.required">
+                            Password is required
+                        </div>
+                        <div *ngIf="a.password1.errors.matching">
+                            Password mismatch.
+                        </div>
+                    </div>
+                </div>
 
-                <p-calendar inputId="birthday"></p-calendar>
-            </div>
+                <div class="field col-12 md:col-4">
+                    <label htmlFor="gender">Gender</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGender"
+                        optionLabel="name"
+                        optionValue="name"
+                        formControlName="gender"
+                    ></p-dropdown>
+                </div>
 
-            <div class="field col-12 md:col-4">
-                <label htmlFor="email">Email</label>
-                <input pInputText id="email" type="text" />
-            </div>
+                <div class="field col-12 md:col-4">
+                    <label for="dob">Birthday</label>
 
-            <div class="field col-12 md:col-4">
-                <label for="password1">Password</label>
-                <p-password id="password1" placeholder="Password" [toggleMask]="true"></p-password>
+                    <p-calendar
+                        formControlName="dob"
+                        inputId="birthday"
+                    ></p-calendar>
+                    <div
+                        *ngIf="a.dob.touched && a.dob.errors"
+                        class="p-error mt-2"
+                    >
+                        <div *ngIf="a.dob.errors.younger.maxAge">
+                            You should be at least 18 years old
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field col-12 md:col-4">
+                    <label htmlFor="married">Employment Status</label>
+                    <p-dropdown
+                        [options]="dropdownItemsEmploymentStatus"
+                        (onChange)="onEmploymentChange()"
+                        optionLabel="name"
+                        formControlName="employeeStatus"
+                    ></p-dropdown>
+                </div>
+
+                <div
+                    *ngIf="empStatus['name'] !== 'Unemployed'"
+                    class="field col-12 md:col-4"
+                >
+                    <label htmlFor="married">Monthly Income</label>
+                    <p-dropdown
+                        [options]="dropdownItemsIncome"
+                        optionLabel="name"
+                        optionValue="name"
+                        formControlName="income"
+                    ></p-dropdown>
+                </div>
+
+                <div
+                    class="commitment filed col-12 md:col-12 sm:col-12 m-0 p-0"
+                >
+                    <div class="field md:col-4">
+                        <label htmlFor="married"
+                            >Weekly Time Commitment for Studies</label
+                        >
+                        <p-dropdown
+                            [options]="dropdownItemsCommitment"
+                            optionLabel="name"
+                            optionValue="name"
+                            formControlName="commitment"
+                        ></p-dropdown>
+                    </div>
+                </div>
             </div>
-            <div class="field col-12 md:col-4">
-                <label for="password2">Confirm Password</label>
-                <p-password id="password2" placeholder="Password Confirm" [toggleMask]="true"></p-password>
-            </div>
-        </div>
+            <input
+                pInputText
+                pRipple
+                [disabled]="!personalInfo.valid === true"
+                label="Search"
+                type="submit"
+                class="Success"
+                value="Next"
+            />
+        </form>
     </div>
 </div>
 
-<div class="col-12">
+<div *ngIf="state===2" class="col-12">
     <div class="card">
-        <h6>Educational Details</h6>
-        <h6>OL results</h6>
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-2">
-                <label htmlFor="Sinhala">Sinhala</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="sinhala"></p-dropdown>
+        <h1>Register Form</h1>
+        <h3>Educational Details</h3>
+        <hr>
+        <h4>OL Result</h4>
+        <form [formGroup]="educationInfo" (ngSubmit)="register2()">
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-2">
+                    <label htmlFor="Sinhala">Sinhala</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="olSinhala"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-2">
+                    <label htmlFor="science">Science</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="olScience"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-2">
+                    <label htmlFor="maths">Maths</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="olMaths"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-2">
+                    <label htmlFor="history">History</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="olHistory"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-2">
+                    <label htmlFor="religion">Religion</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="olReligion"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="Sinhala">O/L Group Subject 1</label>
+                    <p-dropdown
+                        [options]="dropdownOLSubj1"
+                        formControlName="olSubj1"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="Sinhala">O/L Group Subject 1 Grade</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="olSubj1grade"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="Sinhala">O/L Group Subject 2</label>
+                    <p-dropdown
+                        [options]="dropdownOLSubj2"
+                        formControlName="olSubj2"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="Sinhala">O/L Group Subject 2 Grade</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="olSubj2grade"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="Sinhala">O/L Group Subject 3</label>
+                    <p-dropdown
+                        [options]="dropdownOLSubj3"
+                        formControlName="olSubj3"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="Sinhala">O/L Group Subject 3 Grade</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="olSubj3grade"
+                    ></p-dropdown>
+                </div>
             </div>
-            <div class="field col-12 md:col-2">
-                <label htmlFor="English">English</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="english"></p-dropdown>
-            </div>
-            <div class="field col-12 md:col-2">
-                <label htmlFor="Mathematics">Mathematics</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="maths"></p-dropdown>
-            </div>
-            <div class="field col-12 md:col-2">
-                <label htmlFor="Science">Science</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="science"></p-dropdown>
-            </div>
-            <div class="field col-12 md:col-2">
-                <label htmlFor="Religion">Religion</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="religion"></p-dropdown>
-            </div>
-            <div class="field col-12 md:col-2">
-                <label htmlFor="History">History</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="history"></p-dropdown>
+            <hr>
+            <h4>AL Result</h4>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="stream">Stream</label>
+                    <p-dropdown
+                        (onChange)="onALStreamChange()"
+                        formControlName="alStream"
+                        [options]="dropdownALStream"
+                    ></p-dropdown>
+                </div>
+                <div
+                    *ngIf="defaultALStream === 'Mathematics'"
+                    class="filed p-formgrid grid p-3"
+                >
+                    <div class="field col-12 md:col-4">
+                        <label htmlFor="Sinhala">Mathematics</label>
+                        <p-dropdown
+                            [options]="dropdownItemsGrade"
+                            optionLabel="name"
+                            formControlName="alSubj1"
+                        ></p-dropdown>
+                    </div>
+
+                    <div class="field col-12 md:col-4">
+                        <label htmlFor="Sinhala">Chemistry</label>
+                        <p-dropdown
+                            [options]="dropdownItemsGrade"
+                            optionLabel="name"
+                            formControlName="alSubj2"
+                        ></p-dropdown>
+                    </div>
+
+                    <div class="field col-12 md:col-4">
+                        <label htmlFor="Sinhala">Physics</label>
+                        <p-dropdown
+                            [options]="dropdownItemsGrade"
+                            optionLabel="name"
+                            formControlName="alSubj3"
+                        ></p-dropdown>
+                    </div>
+                </div>
+
+                <div
+                *ngIf="defaultALStream === 'Mathematics with IT'"
+                class="filed p-formgrid grid p-3"
+            >
+                <div class="field col-12 md:col-4">
+                    <label htmlFor="Sinhala">Mathematics</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="alSubj1"
+                    ></p-dropdown>
+                </div>
+
+                <div class="field col-12 md:col-4">
+                    <label htmlFor="Sinhala">IT</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="alSubj2"
+                    ></p-dropdown>
+                </div>
+
+                <div class="field col-12 md:col-4">
+                    <label htmlFor="Sinhala">Physics</label>
+                    <p-dropdown
+                        [options]="dropdownItemsGrade"
+                        optionLabel="name"
+                        formControlName="alSubj3"
+                    ></p-dropdown>
+                </div>
             </div>
 
+            <div
+            *ngIf="defaultALStream === 'Biology'"
+            class="filed p-formgrid grid p-3"
+        >
+            <div class="field col-12 md:col-4">
+                <label htmlFor="Sinhala">Biology</label>
+                <p-dropdown
+                    [options]="dropdownItemsGrade"
+                    optionLabel="name"
+                    formControlName="alSubj1"
+                ></p-dropdown>
+            </div>
 
+            <div class="field col-12 md:col-4">
+                <label htmlFor="Sinhala">Chemistry</label>
+                <p-dropdown
+                    [options]="dropdownItemsGrade"
+                    optionLabel="name"
+                    formControlName="alSubj2"
+                ></p-dropdown>
+            </div>
 
-
+            <div class="field col-12 md:col-4">
+                <label htmlFor="Sinhala">Physics</label>
+                <p-dropdown
+                    [options]="dropdownItemsGrade"
+                    optionLabel="name"
+                    formControlName="alSubj3"
+                ></p-dropdown>
+            </div>
         </div>
-        <h6>AL results</h6>
-        <div class="p-fluid p-formgrid grid">
-            <div class="field col-12 md:col-3">
-                <label htmlFor="stream">Stream</label>
-                <p-dropdown [options]="dropdownItemsStream" optionLabel="name"
-                    [(ngModel)]="selectedStream"></p-dropdown>
-            </div>
-            <div class="field col-12 md:col-2">
 
-                <label htmlFor="Sinhala">Sinhala</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="sinhala"></p-dropdown>
             </div>
-            <div class="field col-12 md:col-2">
-                <label htmlFor="English">English</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="english"></p-dropdown>
-            </div>
-            <div class="field col-12 md:col-2">
-                <label htmlFor="Mathematics">Mathematics</label>
-                <p-dropdown [options]="dropdownItemsGrade" optionLabel="name" [(ngModel)]="maths"></p-dropdown>
-            </div>
-        </div>
-        <button pButton pRipple type="button" label="Success"></button>
+            <input
+                pInputText
+                pRipple
+                [disabled]="!educationInfo.valid === true"
+                label="Search"
+                type="submit"
+                class="Success w-3 text-lg font-semibold"
+                value="Submit"
+                label="Success"
+                pButton
+            />
+        </form>
     </div>
 </div>
