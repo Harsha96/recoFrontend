@@ -11,7 +11,7 @@ import { UserService } from 'src/app/demo/Services/user.service';
     styleUrls: ['./course.scss']
 })
 export class CourseComponent implements OnInit {
-    courses!: any[]
+    courses: any[] = [];
     socialFactors: number = 0
     educationalFactors: number = 0
     user: any | undefined;
@@ -21,7 +21,7 @@ export class CourseComponent implements OnInit {
     level5!: any[]
     level6!: any[]
     lineData: any;
-
+    scoreData: any
     barData: any;
 
     pieData: any;
@@ -40,11 +40,20 @@ export class CourseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getUserData()
-        this.getLevel3()
-        this.getLevel4()
-        this.getLevel5()
-        this.getLevel6()
+        // Wait for all API calls to complete
+        Promise.all([
+            this.getUserData(),
+            this.getLevel3(),
+            this.getLevel4(),
+            this.getLevel5(),
+            this.getLevel6()
+        ]).then(() => {
+            this.loading = true
+            setTimeout(() => {
+                this.dataFiltering();
+                // this.initCharts();
+            }, 2000); // Adjust the delay time (in milliseconds) as needed
+        });
         // this.initCharts();
 
     }
@@ -172,10 +181,12 @@ export class CourseComponent implements OnInit {
     // }
     getLevel3() {
         this.loading = true
+
         this.courseService.getLevel3().subscribe(
             (response: any) => {
                 this.loading = false
                 this.level3 = response;
+
 
             },
             (error: any) => {
@@ -221,6 +232,54 @@ export class CourseComponent implements OnInit {
                 console.error('Error fetching Courses:', error);
             }
         );
+    }
+    dataFiltering() {
+
+
+        let sortedLevel3Courses: any[] = [];
+        this.courses.forEach(recommendation => {
+            const level3Course = this.level3.find(course => course.course_code === recommendation.name);
+
+            if (level3Course) {
+                level3Course.probability = recommendation.progress;
+                sortedLevel3Courses.push(level3Course);
+            }
+        });
+        this.level3 = sortedLevel3Courses
+        let sortedLevel4Courses: any[] = [];
+        this.courses.forEach(recommendation => {
+            const level4Course = this.level4.find(course => course.course_code === recommendation.name);
+
+            if (level4Course) {
+                level4Course.probability = recommendation.progress;
+                sortedLevel4Courses.push(level4Course);
+            }
+        });
+        this.level4 = sortedLevel4Courses;
+
+        let sortedLevel5Courses: any[] = [];
+        this.courses.forEach(recommendation => {
+            const level5Course = this.level5.find(course => course.course_code === recommendation.name);
+
+            if (level5Course) {
+                level5Course.probability = recommendation.progress;
+                sortedLevel5Courses.push(level5Course);
+            }
+        });
+        this.level5 = sortedLevel5Courses;
+
+        let sortedLevel6Courses: any[] = [];
+        this.courses.forEach(recommendation => {
+            const level6Course = this.level6.find(course => course.course_code === recommendation.name);
+
+            if (level6Course) {
+                level6Course.probability = recommendation.progress;
+                sortedLevel6Courses.push(level6Course);
+            }
+        });
+        this.level6 = sortedLevel6Courses;
+        this.loading = false
+
     }
     initCharts(data: any) {
         this.loadCharts = true
@@ -355,6 +414,27 @@ export class CourseComponent implements OnInit {
                         '#FF5252',
                         '#80CBC4',
                         '#FFEB3B'
+                    ]
+                }
+            ]
+        };
+        console.log(data.probability);
+        let notSuccess = 100 - data.probability
+        this.scoreData = {
+            labels: ['Success', 'Not Success'
+            ],
+            datasets: [
+                {
+                    data: [data.probability, notSuccess],
+                    backgroundColor: [
+                        ' #32CD32',
+                        '#36A2EB',
+
+                    ],
+                    hoverBackgroundColor: [
+                        '#00FF00',
+                        '#36A2EB',
+
                     ]
                 }
             ]

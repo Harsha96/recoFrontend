@@ -13,6 +13,9 @@
                                 <div>
                                     <h5 class="mb-1">{{level.course_name}}</h5>
                                     <h6 class="mt-0 mb-3">{{level.course_code}}</h6>
+                                    <!-- <div class="col">
+                                        <p-progressBar [value]="level.probability" [showValue]="false"></p-progressBar>
+                                    </div> -->
                                     <!-- <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span> -->
                                     <div class="my-5">
                                         <button pButton pRipple icon="pi pi-search"
@@ -116,8 +119,8 @@
 <div class="grid p-fluid" *ngIf="loadCharts">
     <div class="col-12 lg:col-6">
         <div class="card flex flex-column align-items-center">
-            <h5 class="text-left w-full">Doughnut Chart</h5>
-            <p-chart type="doughnut" [data]="pieData" [options]="pieOptions"></p-chart>
+            <h5 class="text-left w-full">Recommending score </h5>
+            <p-chart type="doughnut" [data]="scoreData" [options]="pieOptions"></p-chart>
         </div>
 
         <div class="card">
