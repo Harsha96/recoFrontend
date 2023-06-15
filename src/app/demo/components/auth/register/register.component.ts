@@ -293,18 +293,21 @@ export class RegisterComponent {
         let alResults;
         if (this.defaultALStream === 'Mathematics') {
             alResults = {
+                stream: this.defaultALStream,
                 Mathematics: subject1Grade,
                 Chemistry: subject2Grade,
                 Physics: subject3Grade,
             };
         } else if (this.defaultALStream === 'Mathematics with IT') {
             alResults = {
+                stream: this.defaultALStream,
                 Mathematics: subject1Grade,
                 IT: subject2Grade,
                 Physics: subject3Grade,
             };
         } else {
             alResults = {
+                stream: this.defaultALStream,
                 Biology: subject1Grade,
                 Chemistry: subject2Grade,
                 Physics: subject3Grade,
