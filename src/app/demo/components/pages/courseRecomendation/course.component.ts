@@ -418,7 +418,6 @@ export class CourseComponent implements OnInit {
                 }
             ]
         };
-        console.log(data.probability);
         let notSuccess = 100 - data.probability
         this.scoreData = {
             labels: ['Success', 'Not Success'

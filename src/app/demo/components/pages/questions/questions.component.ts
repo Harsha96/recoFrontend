@@ -5,6 +5,8 @@ import { DegreeRecommendationService } from 'src/app/demo/Services/degree.servic
 import { SharedDataService } from 'src/app/demo/Services/shared.service';
 import { UserService } from 'src/app/demo/Services/user.service';
 import { Degree } from '../enum/degree.enum';
+import { Stream } from 'stream';
+import { AlStream } from '../enum/stream.enum';
 
 @Component({
     selector: 'app-questions',
@@ -80,7 +82,7 @@ export class QuestionsComponent implements OnInit {
 
     getDegree() {
         this.getUserData()
-        console.log("work", this.degree);
+
 
 
 
@@ -692,6 +694,34 @@ export class QuestionsComponent implements OnInit {
         }
 
     }
+    onSubmit() {
 
+
+        const transformedAnswers: any = {};
+
+        for (let i = 1; i <= 52; i++) {
+            const questionKey = `q${i}`;
+            const matchingAnswer = this.answers.find((answerObj) => answerObj.question === i);
+            const answer = matchingAnswer ? matchingAnswer.answer : "0";
+            transformedAnswers[questionKey] = [answer];
+        }
+        let streamNum
+        if (this.user.stream == AlStream.Art) {
+            streamNum = 4
+        } else if (this.user.stream == AlStream.Bio) {
+            streamNum = 0
+        } else if (this.user.stream == AlStream.Commerce) {
+            streamNum = 3
+        } else if (this.user.stream == AlStream.Maths_IT) {
+            streamNum = 2
+        } else if (this.user.stream == AlStream.Maths_che) {
+            streamNum = 1
+        } else if (this.user.stream == AlStream.Technology) {
+            streamNum = 5
+        }
+        transformedAnswers[`q53`] = streamNum
+
+
+    }
 }
 

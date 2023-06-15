@@ -34,11 +34,11 @@ import { RegisterComponent } from './demo/components/auth/register/register.comp
                                 ).then((m) => m.UtilitiesModule),
                         },
                         {
-                            path: 'documentation',
+                            path: 'profile',
                             loadChildren: () =>
                                 import(
-                                    './demo/components/documentation/documentation.module'
-                                ).then((m) => m.DocumentationModule),
+                                    './demo/components/profile/profile.module'
+                                ).then((m) => m.ProfileModule),
                         },
                         {
                             path: 'blocks',
@@ -82,4 +82,4 @@ import { RegisterComponent } from './demo/components/auth/register/register.comp
     ],
     exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
