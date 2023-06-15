@@ -8,6 +8,9 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/demo/Services/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
@@ -27,8 +30,9 @@ export class RegisterComponent {
     religion: any = null;
     history: any = null;
     empStatus: any;
-    defaultALStream: string = 'Mathematics';
+    defaultALStream: string = 'Mathematics with Chemistry';
     state: number = 1;
+    loading = false
 
     dropdownItemsGender = [
         // { name: '', code: '' },
@@ -133,17 +137,17 @@ export class RegisterComponent {
         'Electronic Writing & Shorthand (English)',
     ];
 
-    dropdownALStream = ['Mathematics', 'Mathematics with IT', 'Biology'];
+    dropdownALStream = ['Mathematics with Chemistry', 'Mathematics with IT', 'Biology'];
 
     youngerThanValidator =
         (maxAge: number): ValidatorFn =>
-        (control) => {
-            return new Date().getFullYear() -
-                new Date(control.value).getFullYear() <
-                maxAge
-                ? { younger: { maxAge } }
-                : null;
-        };
+            (control) => {
+                return new Date().getFullYear() -
+                    new Date(control.value).getFullYear() <
+                    maxAge
+                    ? { younger: { maxAge } }
+                    : null;
+            };
 
     personalInfo = new FormGroup({
         firstName: new FormControl('', [
@@ -177,6 +181,7 @@ export class RegisterComponent {
         olScience: new FormControl('A'),
         olMaths: new FormControl('A'),
         olHistory: new FormControl('A'),
+        olEnglish: new FormControl('A'),
         olReligion: new FormControl('A'),
         olSubj1: new FormControl('Business & Accounting Studies'),
         olSubj1grade: new FormControl('A'),
@@ -184,7 +189,7 @@ export class RegisterComponent {
         olSubj2grade: new FormControl('A'),
         olSubj3: new FormControl('Information & Communication Technology'),
         olSubj3grade: new FormControl('A'),
-        alStream: new FormControl('Mathematics'),
+        alStream: new FormControl('Mathematics with Chemistry'),
         alSubj1: new FormControl('A'),
         alSubj2: new FormControl('A'),
         alSubj3: new FormControl('A'),
@@ -196,8 +201,8 @@ export class RegisterComponent {
 
     onALStreamChange() {
         // 'Mathematics', 'Mathematics with IT', 'Biology'
-        if (this.educationInfo.value['alStream'] === 'Mathematics') {
-            this.defaultALStream = 'Mathematics';
+        if (this.educationInfo.value['alStream'] === 'Mathematics with Chemistry') {
+            this.defaultALStream = 'Mathematics with Chemistry';
         } else if (this.educationInfo.value['alStream'] === 'Biology') {
             this.defaultALStream = 'Biology';
         } else if (
@@ -211,12 +216,13 @@ export class RegisterComponent {
     constructor(
         public layoutService: LayoutService,
 
-        private fb: FormBuilder
+        private fb: FormBuilder, private authService: AuthService, private messageService: MessageService, private router: Router
     ) {
-        this.empStatus = {
-            name: 'Unemployed',
-            code: 'Unemployed',
-        };
+        this.empStatus = 'Unemployed'
+        // this.empStatus = {
+        //     name: 'Unemployed',
+        //     code: 'Unemployed',
+        // };
     }
 
     personalDetails = {};
@@ -226,17 +232,17 @@ export class RegisterComponent {
         // console.log(this.a.password1);
     }
 
- 
+
 
     register() {
-        let employeeStatus:any = this.personalInfo.value['employeeStatus'];
-        let income:any;
-        let martialStatus:any = this.personalInfo.value['martialStatus'];
-        let gender:any = this.personalInfo.value['gender'];
-        let commitment:any = this.personalInfo.value['commitment'];
-        if(employeeStatus === 'Unemployment'){
-            income ='Less than 30,000';
-        } else{
+        let employeeStatus: any = this.personalInfo.value['employeeStatus'];
+        let income: any;
+        let martialStatus: any = this.personalInfo.value['martialStatus'];
+        let gender: any = this.personalInfo.value['gender'];
+        let commitment: any = this.personalInfo.value['commitment'];
+        if (employeeStatus === 'Unemployed') {
+            income = 'Less than 30,000';
+        } else {
 
             income = this.personalInfo.value['income'];
         }
@@ -244,7 +250,7 @@ export class RegisterComponent {
         this.personalDetails = {
             firstName: this.personalInfo.value['firstName'],
             lastName: this.personalInfo.value['lastName'],
-            email : this.personalInfo.value['email'],
+            email: this.personalInfo.value['email'],
             nic: this.personalInfo.value['nic'],
             income: income,
             gender: gender,
@@ -252,38 +258,48 @@ export class RegisterComponent {
             martialStatus: martialStatus,
             employeeStatus: employeeStatus,
             commitment: commitment,
+            password: this.personalInfo.value['password']
         }
-        this.state =2;
+        this.state = 2;
+
+
     }
     register2() {
 
         let history = this.educationInfo.value['olHistory'];
+        let english = this.educationInfo.value['olEnglish'];
         let maths = this.educationInfo.value['olMaths'];
         let religion = this.educationInfo.value['olReligion'];
         let science = this.educationInfo.value['olScience'];
         let sinhala = this.educationInfo.value['olSinhala'];
-        let sub1 = this.educationInfo.value['olSubj1'];
+        let sub1: any = this.educationInfo.value['olSubj1'];
         let sub1Grade = this.educationInfo.value['olSubj1grade'];
-        let sub2 = this.educationInfo.value['olSubj2'];
+        let sub2: any = this.educationInfo.value['olSubj2'];
         let sub2Grade = this.educationInfo.value['olSubj2grade'];
-        let sub3 = this.educationInfo.value['olSubj3'];
+        let sub3: any = this.educationInfo.value['olSubj3'];
         let sub3Grade = this.educationInfo.value['olSubj3grade'];
 
-        let olResults = {
+        let olResults: any = {
             history: history,
             mathematics: maths,
             religion: religion,
             science: science,
             sinhala: sinhala,
+            english: english
         };
         if (typeof sub1 === 'string' && typeof sub1Grade === 'string') {
-            Object.defineProperty(olResults, sub1, {value:sub1Grade});
+            // Object.defineProperty(olResults, sub1, { value: sub1Grade });
+            olResults[sub1] = sub1Grade;
         }
         if (typeof sub2 === 'string' && typeof sub2Grade === 'string') {
-            Object.defineProperty(olResults, sub2, {value:sub2Grade});
+            // Object.defineProperty(olResults, sub2, { value: sub2Grade });
+            olResults[sub2] = sub2Grade;
+
         }
         if (typeof sub3 === 'string' && typeof sub3Grade === 'string') {
-            Object.defineProperty(olResults, sub3, {value:sub3Grade});
+            // Object.defineProperty(olResults, sub3, { value: sub3Grade });
+            olResults[sub3] = sub3Grade;
+
         }
 
         let subject1Grade = this.educationInfo.value['alSubj1'];
@@ -293,28 +309,25 @@ export class RegisterComponent {
         let alResults;
         if (this.defaultALStream === 'Mathematics') {
             alResults = {
-                stream: this.defaultALStream,
                 Mathematics: subject1Grade,
                 Chemistry: subject2Grade,
                 Physics: subject3Grade,
             };
         } else if (this.defaultALStream === 'Mathematics with IT') {
             alResults = {
-                stream: this.defaultALStream,
                 Mathematics: subject1Grade,
                 IT: subject2Grade,
                 Physics: subject3Grade,
             };
         } else {
             alResults = {
-                stream: this.defaultALStream,
                 Biology: subject1Grade,
                 Chemistry: subject2Grade,
                 Physics: subject3Grade,
             };
         }
         this.educationResults = {
-            alResults, 
+            alResults,
             olResults
         }
         this.onSubmit();
@@ -325,34 +338,61 @@ export class RegisterComponent {
     }
 
     onSubmit() {
-        let pData:any = this.personalDetails;
-        let eData:any = this.educationResults;
+        this.loading = true
+
+        let pData: any = this.personalDetails;
+        let eData: any = this.educationResults;
         let formData = {
             firstName: pData['firstName'],
             lastName: pData['lastName'],
-            email : pData['email'],
+            email: pData['email'],
             nic: pData['nic'],
             income: pData['income'],
             gender: pData['gender'],
-            dob: pData['dob'],
+            password: pData['password'],
+            birthday: pData['dob'],
             martialStatus: pData['martialStatus'],
-            employeeStatus: pData['employeeStatus'],
-            commitment: pData['commitment'],
-            olResults:eData['olResults'],
-            alResults: eData['alResults']
-        }
+            emp_status: pData['employeeStatus'],
+            weekly_availability: pData['commitment'],
+            olResults: eData['olResults'],
+            alResults: eData['alResults'],
+            stream: this.defaultALStream,
+            userRole: "student",
 
+
+        }
+        this.authService.register(formData).subscribe(
+            (response: any) => {
+                this.loading = false
+                this.router.navigate(['/auth/login']);
+
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Success',
+                    detail: 'Register Success',
+                });
+            },
+            (error: any) => {
+                this.loading = false
+
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Register  failed',
+                });
+            }
+        );
         console.log(formData);
     }
 
-    convertDate(dateString:any) {
+    convertDate(dateString: any) {
         // Split the date string into its constituent parts.
         const date = new Date(dateString);
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
         const day = date.getDate();
         return `${year}-${month}-${day}`;
-      }
+    }
 }
 
 export function matchValidator(

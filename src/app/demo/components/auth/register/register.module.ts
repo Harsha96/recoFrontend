@@ -21,6 +21,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/demo/Services/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
     imports: [
@@ -43,9 +44,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
         ReactiveFormsModule,
         ToastModule,
         CalendarModule,
-        RadioButtonModule,
+        RadioButtonModule, ProgressSpinnerModule
+
     ],
     declarations: [RegisterComponent],
     providers: [MessageService, AuthService],
 })
-export class RegisterModule {}
+export class RegisterModule { }

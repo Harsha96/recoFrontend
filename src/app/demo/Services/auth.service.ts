@@ -44,4 +44,9 @@ export class AuthService {
             })
         );
     }
+    register(body: any) {
+        const url = `${this.apiUrl}/register`;
+        return this.http.post<any>(url, body);
+    }
+
 }
