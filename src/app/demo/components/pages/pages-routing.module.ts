@@ -44,4 +44,4 @@ import { QuestionsComponent } from './questions/questions.component';
     ],
     exports: [RouterModule],
 })
-export class PagesRoutingModule {}
+export class PagesRoutingModule { }

@@ -5,6 +5,8 @@ import { QuestionsComponent } from './questions/questions.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { SharedDataService } from '../../Services/shared.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
     declarations: [QuestionsComponent],
@@ -14,7 +16,8 @@ import { RippleModule } from 'primeng/ripple';
         FormsModule,
         ReactiveFormsModule,
         ButtonModule,
-        RippleModule,
+        RippleModule, ProgressSpinnerModule
     ],
+    providers: [SharedDataService]
 })
-export class PagesModule {}
+export class PagesModule { }

@@ -27,4 +27,4 @@ import { PhotoService } from './demo/service/photo.service';
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

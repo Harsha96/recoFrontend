@@ -22,7 +22,7 @@ export class AppTopBarComponent implements OnInit {
     constructor(public layoutService: LayoutService, private userService: UserService, private router: Router, private messageService: MessageService, private authService: AuthService) { }
     ngOnInit(): void {
         let email = localStorage.getItem('email');
-        if (email !== null) {
+        if (email) {
             // Call the function with the non-null value
             this.userService.getUserByEmail(email).subscribe(
 
@@ -62,5 +62,9 @@ export class AppTopBarComponent implements OnInit {
                 console.log(error);
             }
         );
+    }
+    profile() {
+        this.router.navigate(['/page/profile']);
+
     }
 }
