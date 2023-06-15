@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService, PrimeIcons } from 'primeng/api';
 import { DegreeRecommendationService } from 'src/app/demo/Services/degree.service';
+import { SharedDataService } from 'src/app/demo/Services/shared.service';
 import { UserService } from 'src/app/demo/Services/user.service';
 
 @Component({
@@ -107,7 +108,7 @@ export class DegreeComponent implements OnInit {
     getUserData() {
         this.loading = true
         let email = localStorage.getItem('email');
-        if (email !== null) {
+        if (email) {
             // Call the function with the non-null value
             this.userService.getUserByEmail(email).subscribe(async (data) => {
                 this.user = data.user;
@@ -248,7 +249,10 @@ export class DegreeComponent implements OnInit {
         });
     }
     advanceRecomondation() {
+
         this.router.navigate(['/pages/question']);
+
+        // this.router.navigate(['/pages/question']);
     }
     generateChart() {
         this.chartData = {
