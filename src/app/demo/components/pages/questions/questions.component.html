@@ -1,64 +1,7 @@
-<div class="card">
+<div class="card" *ngIf="!predictedOutput">
     <div class="header">
         <h2>Questionnaire</h2>
     </div>
-    <!-- <div class="question">
-        <label>
-            {{ this.count + 1 }}. {{ this.currentQuestion.question }}
-        </label>
-    </div>
-
-    <div class="answers">
-        <input
-            type="radio"
-            (change)="onAnswerChange(currentAnswer)"
-            name="answer"
-            value="{{ this.currentQuestion.answers[0] }}"
-            [(ngModel)]="currentAnswer"
-            required
-        />
-        {{ this.currentQuestion.answers[0] }}
-        <br />
-        <input
-            type="radio"
-            (change)="onAnswerChange(currentAnswer)"
-            name="answer"
-            value="{{ this.currentQuestion.answers[1] }}"
-            [(ngModel)]="currentAnswer"
-            required
-        />
-        {{ this.currentQuestion.answers[1] }}
-        <br />
-        <input
-            type="radio"
-            (change)="onAnswerChange(currentAnswer)"
-            name="answer"
-            value="{{ this.currentQuestion.answers[2] }}"
-            [(ngModel)]="currentAnswer"
-            required
-        />
-        {{ this.currentQuestion.answers[2] }}
-    </div>
-    <br />
-    <button
-        *ngIf="end === false"
-        pButton
-        pRipple
-        label="Next Question"
-        type="button"
-        (click)="onNextQuestion()"
-        [disabled]="isAnswered === false"
-    ></button>
-    <button
-        [disabled]="isAnswered === false"
-        *ngIf="end === true"
-        pButton
-        pRipple
-        label="Submit"
-        type="button"
-        (click)="onNextQuestion()"
-    ></button> -->
-
 
     <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
         <div class="text-900 font-medium text-2xl mb-2">
@@ -92,6 +35,84 @@
             class="w-3" [disabled]="isAnswered === false"></button>
         <button [disabled]="isAnswered === false" *ngIf="end === true" pButton pRipple label="Submit" type="button"
             (click)="onSubmit()" class="w-3"></button>
+    </div>
+</div>
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8" *ngIf="predictedOutput &&display">
+    <div class="text-700 text-center">
+        <div class="text-blue-600 font-bold mb-3"><i class="pi pi-thumbs-up-fill
+            "></i>&nbsp;Our Recommended Degree</div>
+        <div class="text-900 font-bold text-5xl mb-3">{{ predictedOutput[0].group }} </div>
+        <div class="text-700 text-xl mb-5">{{degreeData.desc}}</div>
+
+
+        <div class="  gap-5">
+            <a [href]="degreeData.link" target="_blank">
+                <button pButton pRipple label="More info" icon="pi pi-search" style="padding-right: 2%;"
+                    class="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap p-button-success"></button>
+            </a>
+
+
+            <button pButton pRipple label="View statistics" icon="pi pi-star" style="padding-right: 2%;"
+                class="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap p-button-help "
+                (click)="loadStat()">
+            </button>
+
+        </div>
+    </div>
+</div>
+<div *ngIf="!display">
+    <div class="grid p-fluid">
+        <h5 class="text-left w-full">Similar Degrees That suits You</h5>
+        <div class="col-12 lg:col-6">
+            <div class="card card flex flex-column align-items-center">
+                <h5 class="text-left w-full">{{this.predictedOutput[0].group}} Score</h5>
+                <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+            </div>
+
+            <div class="card card flex flex-column align-items-center">
+                <h5 class="text-left w-full">{{this.predictedOutput[1].group}} Score</h5>
+                <p-chart type="pie" [data]="pieData1" [options]="pieOptions"></p-chart>
+            </div>
+
+
+
+        </div>
+        <div class="col-12 lg:col-6">
+            <div class="card flex flex-column align-items-center">
+                <h5 class="text-left w-full">{{this.predictedOutput[2].group}} Score</h5>
+                <p-chart type="pie" [data]="pieData2" [options]="pieOptions"></p-chart>
+            </div>
+            <div class="card card flex flex-column align-items-center">
+                <h5 class="text-left w-full">{{this.predictedOutput[3].group}} Score</h5>
+                <p-chart type="pie" [data]="pieData3" [options]="pieOptions"></p-chart>
+            </div>
+
+
+
+        </div>
+        <!-- <div class="grid p-fluid">
+            <div class="col-12 lg:col-6">
+                <div class="card">
+                    <h5 class="text-left w-full">{{this.predictedOutput[0].group}} Score</h5>
+                    <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+                </div>
+
+                <div class="card flex flex-column align-items-center">
+                    <h5 class="text-left w-full">{{this.predictedOutput[1].group}} Score</h5>
+                    <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+                </div>
+
+                <div class="card flex flex-column align-items-center">
+                    <h5 class="text-left w-full">{{this.predictedOutput[2].group}} Score</h5>
+                    <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+                </div>
+                <div class="card">
+                    <h5 class="text-left w-full">{{this.predictedOutput[3].group}} Score</h5>
+                    <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+                </div>
+            </div>
+
+        </div> -->
     </div>
 </div>
 <div *ngIf="loading">

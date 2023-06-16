@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SharedDataService } from '../../Services/shared.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
     declarations: [QuestionsComponent],
@@ -16,7 +17,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         FormsModule,
         ReactiveFormsModule,
         ButtonModule,
-        RippleModule, ProgressSpinnerModule
+        RippleModule, ProgressSpinnerModule, ChartModule
     ],
     providers: [SharedDataService]
 })

@@ -9,7 +9,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
-import { SharedDataService } from 'src/app/demo/Services/shared.service';
 
 
 @NgModule({
